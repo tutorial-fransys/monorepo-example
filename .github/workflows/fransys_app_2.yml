@@ -21,10 +21,10 @@ jobs:
       - name: Prepare variables
         id: prepare-vars
         run: |
-          if [[ -z "${{ vars.DOCKERFILE_PATH }}" ]]; then
+          if [[ -z "${{ vars.DOCKERFILE_PATH_APP_2 }}" ]]; then
             echo "DOCKERFILE_PATH=Dockerfile" >> $GITHUB_OUTPUT
           else
-            echo "DOCKERFILE_PATH=${{ vars.DOCKERFILE_PATH }}" >> $GITHUB_OUTPUT
+            echo "DOCKERFILE_PATH=${{ vars.DOCKERFILE_PATH_APP_2 }}" >> $GITHUB_OUTPUT
           fi
       - name: Build the Docker image
         run: docker buildx build --cache-from "$FRANSYS_REGISTRY:${{ github.sha }}" --cache-from "$FRANSYS_REGISTRY:${{ github.ref_name }}" -f ${{ steps.prepare-vars.outputs.DOCKERFILE_PATH }} --tag "$FRANSYS_REGISTRY:${{ github.sha }}" --progress=plain . 2>&1
